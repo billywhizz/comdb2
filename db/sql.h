@@ -1007,7 +1007,7 @@ struct sqlclntstate {
     int is_coordinator;
 
     char *dist_txnid;
-    int64_t dist_timestamp;
+    long long dist_timestamp;
     char *coordinator_dbname;
     char *coordinator_tier;
     char *coordinator_master;
