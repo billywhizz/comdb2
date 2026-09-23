@@ -8830,6 +8830,7 @@ static int bdb_watchdog_test_io_dir(bdb_state_type *bdb_state, char *dir)
     const int align = 4096;
     const char wdog[] = "watchdog";
 
+fprintf(stderr, "bdb_watchdog_test_io_dir.directio: %i\n", use_directio);
     /* We can supposedly allocate memory - that check is done before this one.
      * If memory allocation broke between then and now, we'll flag a wrong
      * failure.
@@ -8892,6 +8893,16 @@ static int bdb_watchdog_test_io_dir(bdb_state_type *bdb_state, char *dir)
         logmsg(LOGMSG_ERROR, "read %s rc %d errno %d %s\n", path, rc, errno,
                strerror(errno));
         ERRDONE;
+    }
+
+    if (use_directio) {
+        /* Can I read a metadata section from the file  */
+        rc = pread(fd, buf, DBMETASIZE, 0);
+        if (rc != DBMETASIZE) {
+            logmsg(LOGMSG_ERROR, "read-meta %s rc %d errno %d %s\n", path, rc, errno,
+                strerror(errno));
+            ERRDONE;
+        }
     }
 
     /* If we get this far, let's call basic IO working */

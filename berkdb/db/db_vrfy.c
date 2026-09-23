@@ -437,7 +437,7 @@ __db_vrfy_pagezero(dbp, vdp, fhp, flags)
 	dbenv = dbp->dbenv;
 	meta = (DBMETA *)mbuf;
 	dbp->type = DB_UNKNOWN;
-
+fprintf(stderr, "__db_vrfy_pagezero\n");
 	/*
 	 * Seek to the metadata page.
 	 * Note that if we're just starting a verification, dbp->pgsize

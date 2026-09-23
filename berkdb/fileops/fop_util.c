@@ -1029,7 +1029,7 @@ __fop_read_meta(dbenv, name, buf, size, fhp, errok, nbytesp)
 {
 	size_t nr;
 	int ret;
-
+fprintf(stderr, "__fop_read_meta\n");
 	/*
 	 * Our caller wants to know the number of bytes read, even if we
 	 * return an error.
