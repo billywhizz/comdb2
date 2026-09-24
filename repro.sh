@@ -33,8 +33,8 @@ sudo mkfs.xfs -q -f "$loop"
 mkdir -p "$MNT"
 sudo mount "$loop" "$MNT"
 sudo chown -R andrew:andrew "$MNT"
-#comdb2 --create "$DBNAME" --dir "$MNT/db"
-comdb2 --create "$DBNAME" --dir "$MNT/db" --tunable "setattr directio 0"
+comdb2 --create "$DBNAME" --dir "$MNT/db"
+#comdb2 --create "$DBNAME" --dir "$MNT/db" --tunable "setattr directio 0"
 echo database created
 rc=0
 timeout "$WAIT" comdb2 "$DBNAME" --dir "$MNT/db" --tunable "port localhost 21000" --tunable "portmux_port 0" --tunable "disallow_portmux_route 1" 2>&1 | tee "$log" || rc=$?
